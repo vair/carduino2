@@ -1,17 +1,17 @@
 #include <Servo.h>
 #include <SoftwareSerial.h>
-SoftwareSerial BTSerial(7, 2);   // RX | TX
+SoftwareSerial BTSerial(7, 2);   // RX | TX Data communication between HC-05 and Atmel. Note BT pass"1234" speed 9600 by defoult
 
 Servo servo1;  // create servo object to control a servo
 int enablePin = 4;  // enable pin for the motor driver
-int in1Pin = 8;  // input 1 pin for the motor driver
-int in2Pin = 9;  // input 2 pin for the motor driver
+int in1Pin = 8;  // input pin for the motor driver
+int in2Pin = 9;  // input pin for the motor driver
 
 void setup() {
-  //SoftwareSerial mySerial(7, 2);  // RX, TX
+
   
   BTSerial.begin(9600);
-  servo1.attach(12);  // attaches the servo on pin 9 to the servo object
+  servo1.attach(12);  // attaches the servo on pin  to the servo object
   pinMode(enablePin, OUTPUT);  // set the enable pin as an output
   pinMode(in1Pin, OUTPUT);  // set the input 1 pin as an output
   pinMode(in2Pin, OUTPUT);  // set the input 2 pin as an output
@@ -32,34 +32,34 @@ void loop() {
   //}
   int input = BTSerial.read();  // read the input from the serial port
 
-  if (input == 'L') {  // if the input is '1', move servo 1 to 0 degrees
+  if (input == 'L') {  // if the input is 'L', move servo left
     servo1.write(60);
     //delay(500);
     //servo1.write(105);
    // delay(10);  
   }
-  else if (input == 'R') {  // if the input is '2', move servo 1 to 180 degrees
+  else if (input == 'R') {  // if the input is 'R', move servo right
     servo1.write(130);
    // delay(500);
     //servo1.write(105);
    // delay(10);  
   }
   
-  else if (input == 'F') {  // if the input is '3', turn on motor 1 in forward direction at full speed
+  else if (input == 'F') {  // if the input is 'F', turn on motor 1 in forward direction at full speed
     digitalWrite(in1Pin, HIGH);
     digitalWrite(in2Pin, LOW);
     analogWrite(enablePin, 255);  // set the duty cycle to 255 (maximum speed)
    // delay(10);    
   }
-  else if (input == 'B') {  // if the input is '4', turn on motor 1 in reverse direction at full speed
+  else if (input == 'B') {  // if the input is 'B', turn on motor 1 in reverse direction at full speed
     digitalWrite(in1Pin, LOW);
     digitalWrite(in2Pin, HIGH);
     analogWrite(enablePin, 255);  // set the duty cycle to 255 (maximum speed)
     //delay(10);  
   }
-  else if (input == 'S') {  // if the input is '5', turn off motor 1
+  else if (input == 'S') {  // if the input is 'S', turn off motor 1
   //delay(1000); 
-    servo1.write(105);
+    servo1.write(105); //set as 0 direction (ballanced)
     //delay(10);   
     digitalWrite(in1Pin, LOW);
     digitalWrite(in2Pin, LOW);
